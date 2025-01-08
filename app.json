@@ -38,6 +38,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "38db79c4-756a-4197-a7d8-449f844eb420"
+      }
+    },
+    "owner": "oleh_stelmashchuk"
   }
 }
