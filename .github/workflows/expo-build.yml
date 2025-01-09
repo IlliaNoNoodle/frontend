@@ -29,18 +29,18 @@ jobs:
         run: npm install -g expo-cli eas-cli
 
       # Authenticate with Expo using EXPO_TOKEN
-      - name: Set EXPO_TOKEN
+      - name: Authenticate with Expo
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: |
-          if [ -z "$EXPO_TOKEN" ]; then
-            echo "Error: EXPO_TOKEN is not set. Please set it in your repository secrets."
-            exit 1
-          fi
+          eas whoami || eas login --token $EXPO_TOKEN
 
-      # Initialize EAS if not already configured
-      - name: Initialize EAS project
-        run: eas init --non-interactive || echo "EAS project already initialized."
+      # Ensure the project is linked to an EAS account
+      - name: Link EAS Project
+        run: |
+          if [ ! -f ".eas.json" ]; then
+            eas init --non-interactive
+          fi
 
       # Build the app with EAS
       - name: Build app
